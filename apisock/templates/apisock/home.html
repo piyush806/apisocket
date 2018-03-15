@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3>Append Names Here</h3>
+    <div class="context" >
+        {{context}}
+    </div>
+    <ul id="list">
+
+    </ul>
+
+{% endblock %}
+{% block script %}
+<script>
+$(function(){
+    // var context = $('.context').val();
+    // console.log(context);
+    // for( var in context ){
+    //
+    // }
+    console.log(window.location.protocol);
+    console.log(window.location.host);
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var socket = new WebSocket(ws_scheme + '://' + window.location.host );
+
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+
+    var message = $('#context').val()
+    // socket.send(JSON.stringify(message));
+
+});
+</script>
+{% endblock %}
